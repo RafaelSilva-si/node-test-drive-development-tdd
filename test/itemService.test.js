@@ -8,12 +8,12 @@ const itemDatabase = path.resolve(__dirname, "../src/database/items.json");
 
 const ItemService = require("../src/services/itemService");
 const baseRepository = require("../src/repository/baseRepository");
-const { error } = require("console");
 
 const mocks = {
   addReturnsValid: require("./mocks/add-return-valid.json"),
   addReturnsValidWithoutDesc: require("./mocks/add-return-valid-whitout-desc.json"),
   returnItemAlreadyExists: require("./mocks/return-item-already-exists.json"),
+  returnItemUpdated: require("./mocks/return-item-updated.json"),
 };
 
 describe("Item Service", () => {
@@ -21,6 +21,8 @@ describe("Item Service", () => {
   let addStub;
   let getByNameStube;
   let removeStub;
+  let updateStub;
+  let getIndexByIdStub;
 
   before(async () => {
     addStub = Sinon.stub(baseRepository.prototype, "add");
@@ -28,6 +30,8 @@ describe("Item Service", () => {
 
     getByNameStube = Sinon.stub(baseRepository.prototype, "getByName");
     removeStub = Sinon.stub(baseRepository.prototype, "remove");
+    updateStub = Sinon.stub(baseRepository.prototype, "update");
+    getIndexByIdStub = Sinon.stub(baseRepository.prototype, "getIndexById");
 
     itemService = new ItemService(itemDatabase);
   });
@@ -110,6 +114,9 @@ describe("Item Service", () => {
   describe("Remove Item", () => {
     it("Should remove an item", async () => {
       removeStub.resolves(true);
+      getIndexByIdStub
+        .withArgs("edcc6b5f-0f78-422d-a887-8e35bb8845a0")
+        .resolves(0);
 
       const result = await itemService.removeItem(
         "edcc6b5f-0f78-422d-a887-8e35bb8845a0"
@@ -124,6 +131,27 @@ describe("Item Service", () => {
         result.error.message,
         "Item not found in inventory"
       );
+    });
+  });
+
+  describe("Update Item", () => {
+    it("Should update an item", async () => {
+      getIndexByIdStub
+        .withArgs("edcc6b5f-0f78-422d-a887-8e35bb8845a0")
+        .resolves(1);
+      updateStub.withArgs(1).resolves(mocks.returnItemUpdated);
+
+      const item = {
+        id: "edcc6b5f-0f78-422d-a887-8e35bb8845a0",
+        name: "Sausages",
+        qtd: 7,
+        price: "330.00",
+        describe:
+          "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      };
+
+      const result = await itemService.updateItem(item);
+      assert.deepStrictEqual(result, item);
     });
   });
 });
