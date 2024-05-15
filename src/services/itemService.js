@@ -10,6 +10,12 @@ class ItemService {
       return { error: new Error("Quantity must be greater than 0") };
     }
 
+    const price = item.price && parseFloat(item.price).toFixed(2);
+
+    if (!price || price <= 0.0) {
+      return { error: new Error("Price must be greater than 0") };
+    }
+
     return await this.baseRepository.add(item);
   }
 }
