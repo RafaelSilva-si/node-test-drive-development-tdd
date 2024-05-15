@@ -19,12 +19,15 @@ const mocks = {
 describe("Item Service", () => {
   let itemService;
   let addStub;
+  let getByNameStube;
+  let removeStub;
 
   before(async () => {
     addStub = Sinon.stub(baseRepository.prototype, "add");
     addStub.resolves(mocks.addReturnsValid);
 
-    getByNameStube = Sinon.stub(baseRepository.prototype, "getItemByName");
+    getByNameStube = Sinon.stub(baseRepository.prototype, "getByName");
+    removeStub = Sinon.stub(baseRepository.prototype, "remove");
 
     itemService = new ItemService(itemDatabase);
   });
@@ -101,6 +104,17 @@ describe("Item Service", () => {
 
       const response = await itemService.addItem(item);
       assert.deepStrictEqual(response.error.message, "Name already exists");
+    });
+  });
+
+  describe("Remove Item", () => {
+    it("Should remove an item", async () => {
+      removeStub.resolves(true);
+
+      const result = await itemService.removeItem(
+        "edcc6b5f-0f78-422d-a887-8e35bb8845a0"
+      );
+      assert.deepStrictEqual(result, true);
     });
   });
 });

@@ -6,7 +6,7 @@ class ItemService {
   }
 
   async addItem(item) {
-    const alreadyExists = await this.baseRepository.getItemByName(item.name);
+    const alreadyExists = await this.baseRepository.getByName(item.name);
 
     if (alreadyExists) {
       return { error: new Error("Name already exists") };
@@ -23,6 +23,11 @@ class ItemService {
     }
 
     return await this.baseRepository.add(item);
+  }
+
+  async removeItem(id) {
+    const indexOfItem = await this.baseRepository.getById(id);
+    return await this.baseRepository.remove(indexOfItem);
   }
 }
 
