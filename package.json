@@ -1,23 +1,29 @@
 {
-  "name": "test-drive-development-tdd",
+  "name": "node-test-drive-development-tdd",
   "version": "1.0.0",
-  "description": "Construindo e entendendo sobre Test-Drive-Development (TDD).",
+  "description": "",
   "main": "index.js",
+  "directories": {},
   "scripts": {
-    "start": "npm run build && nodemon dist/app.js",
-    "build": "tsc",
-    "test": "jest"
+    "test:dev": "npx mocha -w **/*.test.js",
+    "test": "npx mocha **/*.test.js",
+    "test:cov": "npx nyc npx mocha **/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelSilva-si/node-test-drive-development-tdd.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.0",
-    "ts-node": "^10.9.2"
+  "bugs": {
+    "url": "https://github.com/RafaelSilva-si/node-test-drive-development-tdd/issues"
   },
+  "homepage": "https://github.com/RafaelSilva-si/node-test-drive-development-tdd#readme",
   "dependencies": {
-    "@types/node": "^20.11.30",
-    "typescript": "^5.4.2"
+    "faker": "^5.1.0",
+    "mocha": "^10.4.0",
+    "nyc": "^15.1.0",
+    "sinon": "^17.0.1"
   }
 }
