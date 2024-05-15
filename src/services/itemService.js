@@ -6,6 +6,12 @@ class ItemService {
   }
 
   async addItem(item) {
+    const alreadyExists = await this.baseRepository.getItemByName(item.name);
+
+    if (alreadyExists) {
+      return { error: new Error("Name already exists") };
+    }
+
     if (!item.qtd || item.qtd < 0) {
       return { error: new Error("Quantity must be greater than 0") };
     }
