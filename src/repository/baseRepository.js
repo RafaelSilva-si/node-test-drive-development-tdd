@@ -5,6 +5,14 @@ class BaseRepository {
     this.file = file;
   }
 
+  async getAll() {
+    try {
+      return JSON.parse(await readFile(this.file));
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getIndexById(id) {
     try {
       const content = JSON.parse(await readFile(this.file));

@@ -5,6 +5,10 @@ class ItemService {
     this.baseRepository = new BaseRepository({ file: itemDatabase });
   }
 
+  async getItems() {
+    return await this.baseRepository.getAll();
+  }
+
   async addItem(item) {
     const alreadyExists = await this.baseRepository.getByName(item.name);
 
