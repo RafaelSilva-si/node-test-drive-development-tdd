@@ -116,5 +116,14 @@ describe("Item Service", () => {
       );
       assert.deepStrictEqual(result, true);
     });
+
+    it("should throw error if item not exists in inventory", async () => {
+      const result = await itemService.removeItem("dasasdasd-8e35bb8845a0");
+
+      assert.deepStrictEqual(
+        result.error.message,
+        "Item not found in inventory"
+      );
+    });
   });
 });
