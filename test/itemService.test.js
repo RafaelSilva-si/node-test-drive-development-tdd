@@ -13,6 +13,7 @@ const { error } = require("console");
 const mocks = {
   addReturnsValid: require("./mocks/add-return-valid.json"),
   addReturnsValidWithoutDesc: require("./mocks/add-return-valid-whitout-desc.json"),
+  returnItemAlreadyExists: require("./mocks/return-item-already-exists.json"),
 };
 
 describe("Item Service", () => {
@@ -22,6 +23,8 @@ describe("Item Service", () => {
   before(async () => {
     addStub = Sinon.stub(baseRepository.prototype, "add");
     addStub.resolves(mocks.addReturnsValid);
+
+    getByNameStube = Sinon.stub(baseRepository.prototype, "getItemByName");
 
     itemService = new ItemService(itemDatabase);
   });
@@ -84,6 +87,20 @@ describe("Item Service", () => {
         response.error.message,
         "Price must be greater than 0"
       );
+    });
+
+    it("Should throw an error if the name already exists", async () => {
+      getByNameStube.withArgs("Table").resolves(mocks.returnItemAlreadyExists);
+
+      const item = {
+        id: "bdfbf435-25cc-4913-8525-42ff8502c9e6",
+        name: "Table",
+        qtd: 2,
+        price: "0.01",
+      };
+
+      const response = await itemService.addItem(item);
+      assert.deepStrictEqual(response.error.message, "Name already exists");
     });
   });
 });
