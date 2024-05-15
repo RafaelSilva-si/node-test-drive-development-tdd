@@ -8,9 +8,11 @@ const itemDatabase = path.resolve(__dirname, "../src/database/items.json");
 
 const ItemService = require("../src/services/itemService");
 const baseRepository = require("../src/repository/baseRepository");
+const { error } = require("console");
 
 const mocks = {
   addReturnsValid: require("./mocks/add-return-valid.json"),
+  addReturnsValidWithoutDesc: require("./mocks/add-return-valid-whitout-desc.json"),
 };
 
 describe("Item Service", () => {
@@ -37,6 +39,18 @@ describe("Item Service", () => {
         price: "360.00",
         describe:
           "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      };
+
+      assert.deepStrictEqual(item, await itemService.addItem(item));
+    });
+
+    it("Should add an item and return it without description", async () => {
+      addStub.resolves(mocks.addReturnsValidWithoutDesc);
+      const item = {
+        id: "bdfbf435-25cc-4913-8525-42ff8502c9e6",
+        name: "Sausages",
+        qtd: 7,
+        price: "360.00",
       };
 
       assert.deepStrictEqual(item, await itemService.addItem(item));
