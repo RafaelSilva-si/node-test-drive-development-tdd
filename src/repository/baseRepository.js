@@ -5,10 +5,10 @@ class BaseRepository {
     this.file = file;
   }
 
-  async getById(id) {
+  async getIndexById(id) {
     try {
       const content = JSON.parse(await readFile(this.file));
-      return content.find((item) => item.id === id);
+      return content.findIndex((item) => item.id === id);
     } catch (error) {
       throw error;
     }
@@ -42,6 +42,17 @@ class BaseRepository {
 
       await writeFile(this.file, JSON.stringify(content));
       return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async update(index, item) {
+    try {
+      const content = JSON.parse(await readFile(this.file));
+      content[index] = item;
+      await writeFile(this.file, JSON.stringify(content));
+      return item;
     } catch (error) {
       throw error;
     }
