@@ -16,9 +16,7 @@ class ItemService {
       return { error: new Error("Quantity must be greater than 0") };
     }
 
-    const price = item.price && parseFloat(item.price).toFixed(2);
-
-    if (!price || price <= 0.0) {
+    if (!item.price || item.price <= 0.0) {
       return { error: new Error("Price must be greater than 0") };
     }
 
@@ -35,6 +33,15 @@ class ItemService {
 
   async updateItem(item) {
     const indexOfItem = await this.baseRepository.getIndexById(item.id);
+    if (indexOfItem < 0 || indexOfItem == undefined)
+      return { error: new Error("Item not found in inventory") };
+
+    if (!item.qtd || item.qtd < 0)
+      return { error: new Error("Quantity must be greater than 0") };
+
+    if (!item.price || item.price <= 0.0)
+      return { error: new Error("Price must be greater than 0") };
+
     const result = await this.baseRepository.update(indexOfItem, item);
     return result;
   }

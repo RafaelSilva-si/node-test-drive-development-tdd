@@ -1,6 +1,5 @@
 const { describe } = require("mocha");
 const assert = require("assert");
-const faker = require("faker");
 const path = require("path");
 const Sinon = require("sinon");
 
@@ -152,6 +151,57 @@ describe("Item Service", () => {
 
       const result = await itemService.updateItem(item);
       assert.deepStrictEqual(result, item);
+    });
+
+    it("Should return error if item not exists in inventory", async () => {
+      const item = {
+        id: "123123123-1231-1231-1231-123123123123",
+        name: "Sausages",
+        qtd: 7,
+        price: "330.00",
+        describe:
+          "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      };
+
+      const result = await itemService.updateItem(item);
+      assert.deepStrictEqual(
+        result.error.message,
+        "Item not found in inventory"
+      );
+    });
+
+    it("Should return error if quantity is less than 0", async () => {
+      const item = {
+        id: "edcc6b5f-0f78-422d-a887-8e35bb8845a0",
+        name: "Sausages",
+        qtd: -1,
+        price: "330.00",
+        describe:
+          "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      };
+
+      const result = await itemService.updateItem(item);
+      assert.deepStrictEqual(
+        result.error.message,
+        "Quantity must be greater than 0"
+      );
+    });
+
+    it("Should return error if price is less than 0", async () => {
+      const item = {
+        id: "edcc6b5f-0f78-422d-a887-8e35bb8845a0",
+        name: "Sausages",
+        qtd: 7,
+        price: "-0.01",
+        describe:
+          "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      };
+
+      const result = await itemService.updateItem(item);
+      assert.deepStrictEqual(
+        result.error.message,
+        "Price must be greater than 0"
+      );
     });
   });
 });
