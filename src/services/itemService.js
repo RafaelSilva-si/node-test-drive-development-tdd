@@ -27,6 +27,9 @@ class ItemService {
 
   async removeItem(id) {
     const indexOfItem = await this.baseRepository.getById(id);
+    if (!indexOfItem)
+      return { error: new Error("Item not found in inventory") };
+
     return await this.baseRepository.remove(indexOfItem);
   }
 }
