@@ -70,5 +70,20 @@ describe("Item Service", () => {
         "Quantity must be greater than 0"
       );
     });
+
+    it("Should throw an error if the price is less than 0 or null", async () => {
+      const item = {
+        id: "bdfbf435-25cc-4913-8525-42ff8502c9e6",
+        name: "Sausages",
+        qtd: 2,
+        price: "-0.01",
+      };
+
+      const response = await itemService.addItem(item);
+      assert.deepStrictEqual(
+        response.error.message,
+        "Price must be greater than 0"
+      );
+    });
   });
 });
