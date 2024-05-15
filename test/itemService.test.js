@@ -13,30 +13,41 @@ const mocks = {
   addReturnsValidWithoutDesc: require("./mocks/add-return-valid-whitout-desc.json"),
   returnItemAlreadyExists: require("./mocks/return-item-already-exists.json"),
   returnItemUpdated: require("./mocks/return-item-updated.json"),
+  getItemReturnValid: require("./mocks/get-item-return-valid.json"),
 };
 
 describe("Item Service", () => {
   let itemService;
   let addStub;
+  let getAllStub;
   let getByNameStube;
   let removeStub;
   let updateStub;
   let getIndexByIdStub;
 
   before(async () => {
+    getAllStub = Sinon.stub(baseRepository.prototype, "getAll");
     addStub = Sinon.stub(baseRepository.prototype, "add");
-    addStub.resolves(mocks.addReturnsValid);
-
     getByNameStube = Sinon.stub(baseRepository.prototype, "getByName");
     removeStub = Sinon.stub(baseRepository.prototype, "remove");
     updateStub = Sinon.stub(baseRepository.prototype, "update");
     getIndexByIdStub = Sinon.stub(baseRepository.prototype, "getIndexById");
+
+    addStub.resolves(mocks.addReturnsValid);
 
     itemService = new ItemService(itemDatabase);
   });
 
   after(() => {
     Sinon.restore();
+  });
+
+  describe("Get All Items", () => {
+    it("Should return all items", async () => {
+      getAllStub.resolves(mocks.getItemReturnValid);
+      const result = await itemService.getItems();
+      assert.deepStrictEqual(result, mocks.getItemReturnValid);
+    });
   });
 
   describe("Add Item", () => {
