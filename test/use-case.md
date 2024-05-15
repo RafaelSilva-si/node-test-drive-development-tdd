@@ -1,5 +1,8 @@
 # Use Cases
 
+## Listagem de item:
+- Testar a listagem trazendo todos itens do inventário.
+
 ## Adição de item:
 - Testar a adição de um novo item ao inventário com informações completas (nome, quantidade disponível, preço unitário e descrição opcional).
 - Testar a adição de um item sem descrição opcional.
