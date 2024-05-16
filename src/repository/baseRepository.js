@@ -9,7 +9,7 @@ class BaseRepository {
     try {
       return JSON.parse(await readFile(this.file));
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 
@@ -18,7 +18,7 @@ class BaseRepository {
       const content = JSON.parse(await readFile(this.file));
       return content.findIndex((item) => item.id === id);
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 
@@ -27,7 +27,7 @@ class BaseRepository {
       const content = JSON.parse(await readFile(this.file));
       return content.find((item) => item.name === name);
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 
@@ -39,7 +39,7 @@ class BaseRepository {
       await writeFile(this.file, JSON.stringify(content));
       return item;
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 
@@ -51,7 +51,7 @@ class BaseRepository {
       await writeFile(this.file, JSON.stringify(content));
       return true;
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 
@@ -62,7 +62,7 @@ class BaseRepository {
       await writeFile(this.file, JSON.stringify(content));
       return item;
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   }
 }
