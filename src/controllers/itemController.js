@@ -1,3 +1,4 @@
+const { error } = require("console");
 const ItemService = require("../services/itemService");
 const path = require("path");
 
@@ -11,9 +12,13 @@ class ItemController {
   async getItems(req, res) {
     try {
       const items = await this.itemService.getItems();
+      if (items.error) {
+        throw items.error;
+      }
+
       res.send(items);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 }
