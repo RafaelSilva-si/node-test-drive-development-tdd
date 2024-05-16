@@ -5,15 +5,15 @@ const Sinon = require("sinon");
 
 const itemDatabase = path.resolve(__dirname, "../src/database/items.json");
 
-const ItemService = require("../src/services/itemService");
-const baseRepository = require("../src/repository/baseRepository");
+const ItemService = require("../../src/services/itemService");
+const baseRepository = require("../../src/repository/baseRepository");
 
 const mocks = {
-  addReturnsValid: require("./mocks/add-return-valid.json"),
-  addReturnsValidWithoutDesc: require("./mocks/add-return-valid-whitout-desc.json"),
-  returnItemAlreadyExists: require("./mocks/return-item-already-exists.json"),
-  returnItemUpdated: require("./mocks/return-item-updated.json"),
-  getItemReturnValid: require("./mocks/get-item-return-valid.json"),
+  addReturnsValid: require("../mocks/add-return-valid.json"),
+  addReturnsValidWithoutDesc: require("../mocks/add-return-valid-whitout-desc.json"),
+  returnItemAlreadyExists: require("../mocks/return-item-already-exists.json"),
+  returnItemUpdated: require("../mocks/return-item-updated.json"),
+  getItemReturnValid: require("../mocks/get-item-return-valid.json"),
 };
 
 describe("Item Service", () => {
@@ -33,8 +33,6 @@ describe("Item Service", () => {
     updateStub = Sinon.stub(baseRepository.prototype, "update");
     getIndexByIdStub = Sinon.stub(baseRepository.prototype, "getIndexById");
 
-    addStub.resolves(mocks.addReturnsValid);
-
     itemService = new ItemService(itemDatabase);
   });
 
@@ -52,6 +50,7 @@ describe("Item Service", () => {
 
   describe("Add Item", () => {
     it("Should add an item and return it", async () => {
+      addStub.resolves(mocks.addReturnsValid);
       const item = {
         id: "bdfbf435-25cc-4913-8525-42ff8502c9e6",
         name: "Sausages",
