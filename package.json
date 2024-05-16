@@ -5,9 +5,10 @@
   "main": "index.js",
   "directories": {},
   "scripts": {
-    "test:dev": "npx mocha -w **/*.test.js",
-    "test": "npx mocha **/*.test.js",
-    "test:cov": "npx nyc npx mocha **/*.test.js"
+    "start": "node ./src/app.js",
+    "test:dev": "npx mocha -w **/**/*.test.js",
+    "test": "npx mocha **/**/*.test.js",
+    "test:cov": "npx nyc npx mocha **/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,13 @@
   },
   "homepage": "https://github.com/RafaelSilva-si/node-test-drive-development-tdd#readme",
   "dependencies": {
+    "express": "^4.19.2",
     "faker": "^5.1.0",
     "mocha": "^10.4.0",
     "nyc": "^15.1.0",
     "sinon": "^17.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
   }
 }
