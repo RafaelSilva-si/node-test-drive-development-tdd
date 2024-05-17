@@ -13,15 +13,18 @@ class ItemService {
     const alreadyExists = await this.baseRepository.getByName(item.name);
 
     if (alreadyExists) {
-      return { error: new Error("Name already exists") };
+      return { error: new Error("Item already exists"), status: 409 };
     }
 
     if (!item.qtd || item.qtd < 0) {
-      return { error: new Error("Quantity must be greater than 0") };
+      return {
+        error: new Error("Quantity must be greater than 0"),
+        status: 400,
+      };
     }
 
     if (!item.price || item.price <= 0.0) {
-      return { error: new Error("Price must be greater than 0") };
+      return { error: new Error("Price must be greater than 0"), status: 400 };
     }
 
     return await this.baseRepository.add(item);
@@ -35,8 +38,8 @@ class ItemService {
     return await this.baseRepository.remove(indexOfItem);
   }
 
-  async updateItem(item) {
-    const indexOfItem = await this.baseRepository.getIndexById(item.id);
+  async updateItem(id, item) {
+    const indexOfItem = await this.baseRepository.getIndexById(id);
     if (indexOfItem < 0 || indexOfItem == undefined)
       return { error: new Error("Item not found in inventory") };
 

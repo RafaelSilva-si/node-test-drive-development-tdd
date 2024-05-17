@@ -116,7 +116,7 @@ describe("Item Service", () => {
       };
 
       const response = await itemService.addItem(item);
-      assert.deepStrictEqual(response.error.message, "Name already exists");
+      assert.deepStrictEqual(response.error.message, "Item already exists");
     });
   });
 
@@ -159,7 +159,7 @@ describe("Item Service", () => {
           "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
       };
 
-      const result = await itemService.updateItem(item);
+      const result = await itemService.updateItem(item.id, item);
       assert.deepStrictEqual(result, item);
     });
 
@@ -173,7 +173,7 @@ describe("Item Service", () => {
           "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
       };
 
-      const result = await itemService.updateItem(item);
+      const result = await itemService.updateItem(item.id, item);
       assert.deepStrictEqual(
         result.error.message,
         "Item not found in inventory"
@@ -190,7 +190,7 @@ describe("Item Service", () => {
           "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
       };
 
-      const result = await itemService.updateItem(item);
+      const result = await itemService.updateItem(item.id, item);
       assert.deepStrictEqual(
         result.error.message,
         "Quantity must be greater than 0"
@@ -207,7 +207,7 @@ describe("Item Service", () => {
           "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
       };
 
-      const result = await itemService.updateItem(item);
+      const result = await itemService.updateItem(item.id, item);
       assert.deepStrictEqual(
         result.error.message,
         "Price must be greater than 0"
