@@ -44,7 +44,7 @@ Aqui estou usando stub e mock para imitar o comportamento do método `add` da cl
 
 Aqui é um teste que espera um erro caso um valor seja passado incorreto, ou qualquer erro que estoure no app.
 
-### Teste de integraçÃo:
+### Teste de integração:
 
 O teste de integração é uma etapa do processo de desenvolvimento de software em que módulos ou componentes são combinados e testados em conjunto. Esse tipo de teste visa verificar a eficiência e a segurança da comunicação entre os sistemas. Essa etapa é essencial para garantir que o software funcione sem erros de integração.
 
