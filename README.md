@@ -1,4 +1,4 @@
-# TDD Com NodeS
+# TDD Com NodeJS
 
 Este repositório demonstra na prática todos os conceitos básicos de uma aplicação simples, construída utilizando TDD (Test Driven Development ou Desenvolvimento Orientado a Testes). Vou falar sobre dois tipos de testes mais utilizados pelas grandes empresas de tecnologia: os testes unitários e os testes de integração. Além disso, vou mostrar as características e diferenças entre eles.
 
