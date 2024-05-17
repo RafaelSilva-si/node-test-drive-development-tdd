@@ -48,8 +48,11 @@ Aqui é um teste que espera um erro caso um valor seja passado incorreto, ou qua
 
 O teste de integração é uma etapa do processo de desenvolvimento de software em que módulos ou componentes são combinados e testados em conjunto. Esse tipo de teste visa verificar a eficiência e a segurança da comunicação entre os sistemas. Essa etapa é essencial para garantir que o software funcione sem erros de integração.
 
-## Conclusão
-
 ![image](https://github.com/RafaelSilva-si/node-test-drive-development-tdd/assets/77937182/70a16958-538e-4a47-81ac-578f351f49c3)
 
+## Para rodar o projeto:
+1 - Clone este projeto.
+2 - Instale as deps com `npm i` ou `yarn` (Utilize `Node V18`)
+3 - Rode os teste com `yarn test:dev` ou `npm test:dev`.
 
+![1627616883421](https://user-images.githubusercontent.com/77937182/157932279-c8aad7d0-0778-43c0-be52-b7e175d56835.gif)
